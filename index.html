@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en" class="snap">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ALS — the AI that studies your own coursework</title>
+    <meta
+      name="description"
+      content="ALS turns your own lecture notes, slides and past papers into an AI tutor that revises with you and quotes the exact page it answered from."
+    />
+    <link rel="canonical" href="https://als.ardena.co.ke/" />
+    <meta name="theme-color" content="#05100f" />
+
+    <!-- Open Graph / social ------------------------------------------------>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ALS" />
+    <meta property="og:title" content="ALS — the AI that studies your own coursework" />
+    <meta
+      property="og:description"
+      content="Feed it your notes, slides and past papers. It learns your units and revises with you, quoting the exact lecture it got the answer from."
+    />
+    <meta property="og:url" content="https://als.ardena.co.ke/" />
+    <meta property="og:image" content="https://als.ardena.co.ke/assets/og.png" />
+    <meta property="og:locale" content="en_KE" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ALS — the AI that studies your own coursework" />
+    <meta
+      name="twitter:description"
+      content="An AI tutor that only knows what you taught it: your notes, your slides, your past papers."
+    />
+    <meta name="twitter:image" content="https://als.ardena.co.ke/assets/og.png" />
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- The hero image is the first thing painted, so it is fetched with the
+         stylesheet rather than after it. -->
+    <link rel="preload" as="image" href="assets/land.jpg" />
+    <link rel="stylesheet" href="assets/styles.css" />
+
+    <!--
+      Structured data. This is what puts the price and the "Android app" label
+      in a search result instead of a bare blue link. FAQPage is what can earn
+      the expandable questions underneath it.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "MobileApplication",
+            "name": "ALS",
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "Android",
+            "description": "An AI study companion that answers only from a student's own lecture notes, slides and past papers, citing the exact page it used.",
+            "url": "https://als.ardena.co.ke/",
+            "inLanguage": "en",
+            "author": {
+              "@type": "Organization",
+              "name": "Ardena",
+              "url": "https://als.ardena.co.ke/"
+            },
+            "offers": [
+              {
+                "@type": "Offer",
+                "name": "Focus",
+                "price": "150",
+                "priceCurrency": "KES"
+              },
+              {
+                "@type": "Offer",
+                "name": "Synapse",
+                "price": "350",
+                "priceCurrency": "KES"
+              },
+              {
+                "@type": "Offer",
+                "name": "Friends",
+                "price": "1250",
+                "priceCurrency": "KES"
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Where do the answers come from?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Only from the material you upload. Every answer names the lecture and page it used, so you can check it against the source."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is my coursework private?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Your notes are never used to train AI models, never sold, and never visible to anyone else — including the people sharing a Friends plan with you."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What does it cost?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Focus is KES 150 a month, Synapse is KES 350, and Friends covers five students for KES 1,250 — KES 250 each. Every account starts free."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Will I be charged automatically?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. Plans do not auto-renew. When 30 days are up, access reverts to the free limits until you choose to pay again."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I delete everything?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Profile, then Settings, then Delete account. It takes effect immediately. If you cannot open the app, email privacy@ardena.co.ke."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__link" href="#home">Home</a>
+      <a class="nav__link" href="#about">About</a>
+      <a class="nav__link" href="pricing.html">Pricing</a>
+    </nav>
+
+    <main id="main">
+      <!-- ================= Hero ========================================= -->
+      <section class="hero" id="home" aria-labelledby="home-h">
+        <div class="hero__inner">
+          <h1 class="hero__title" id="home-h">
+            The AI that actually did your readings.
+          </h1>
+
+          <p class="hero__lede">
+            Feed it your notes, slides and past papers. ALS learns your units
+            and revises with you — quoting the exact lecture it got the answer
+            from, so you can check it.
+          </p>
+
+          <div class="hero__ctas">
+            <a class="btn btn--primary" href="#get" data-store-link>
+              Get the app
+              <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn--ghost" href="pricing.html">See pricing</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= About ======================================== -->
+      <section class="section" id="about" aria-labelledby="about-h">
+        <div class="section__inner">
+          <span class="eyebrow">About</span>
+          <h2 class="section__title" id="about-h">
+            A tutor that only knows what you taught it.
+          </h2>
+          <p class="section__lede">
+            General AI will answer anything, confidently, from a syllabus it has
+            never seen. ALS reads one library — yours — and every answer carries
+            the page it came from. If your lecturer said it, ALS says it. If
+            they didn't, ALS says so.
+          </p>
+
+          <div class="grid">
+            <article class="card">
+              <span class="card__no">01</span>
+              <h3 class="card__title">File it once</h3>
+              <p class="card__body">
+                Notes, lecture slides, PDFs and past papers, filed under the unit
+                they belong to. That library is the only thing the tutor reads.
+              </p>
+            </article>
+
+            <article class="card">
+              <span class="card__no">02</span>
+              <h3 class="card__title">Ask in your own words</h3>
+              <p class="card__body">
+                Ask the way you'd ask a classmate. Answers come back with the
+                lecture and page behind them, so you can check the source rather
+                than trust the machine.
+              </p>
+            </article>
+
+            <article class="card">
+              <span class="card__no">03</span>
+              <h3 class="card__title">Revise against yourself</h3>
+              <p class="card__body">
+                Quizzes are generated from your own material, not a question
+                bank — so a wrong answer points at a page you can go and reread.
+              </p>
+            </article>
+
+            <article class="card">
+              <span class="card__no">04</span>
+              <h3 class="card__title">Keep the semester straight</h3>
+              <p class="card__body">
+                Timetable, CATs, assignments and exams on one calendar, with a
+                streak that counts the days you actually studied.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FAQ ========================================== -->
+      <section class="section" id="faq" aria-labelledby="faq-h">
+        <div class="section__inner">
+          <span class="eyebrow">Questions</span>
+          <h2 class="section__title" id="faq-h">Before you install it.</h2>
+
+          <div class="faq">
+            <details class="faq__item">
+              <summary class="faq__q">
+                Where do the answers come from?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a">
+                Only from the material you upload. ALS does not answer from the
+                internet or from a general model's memory of your subject — it
+                searches your own library, and every answer names the lecture
+                and page it used so you can go and check.
+              </p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                Is my coursework private?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a">
+                Yes. Your notes are never used to train AI models, never sold,
+                and never visible to anyone else — including the four people
+                sharing a Friends plan with you. A shared plan shares the bill,
+                not the library. The
+                <a href="privacy.html">privacy policy</a> sets out exactly who
+                sees what.
+              </p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                What if it gets something wrong?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a">
+                It can, and that is why every answer carries its source. Treat
+                the citation as the point rather than a footnote: if the page it
+                quotes doesn't say what the answer claims, you have caught it in
+                one click. ALS is for revising, not for outsourcing the
+                thinking.
+              </p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                Will I be charged automatically?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a">
+                No. Plans do not auto-renew. When the 30 days are up, access
+                reverts to the free limits until you choose to pay again —
+                nothing leaves your M-Pesa without you starting it. See
+                <a href="pricing.html">pricing</a>.
+              </p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                Can I split it with friends?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a">
+                That is what the Friends plan is. One person pays KES 1,250 and
+                gets a code that seats four others, so everyone has the full top
+                plan for KES 250 each. Seats can be freed and passed on at any
+                time.
+              </p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                How do I delete everything?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a">
+                Profile, then Settings, then Delete account — it takes effect
+                immediately and removes your coursework with it. If you can no
+                longer open the app, the
+                <a href="delete-account.html">account deletion page</a> explains
+                how to request it, and exactly what is removed and what is kept.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Get the app + footer ========================= -->
+      <section
+        class="section section--dark section--end"
+        id="get"
+        aria-labelledby="get-h"
+      >
+        <div class="closer">
+          <h2 class="closer__title" id="get-h">Bring your own coursework.</h2>
+          <p class="closer__lede">
+            Install it, file one lecture, and ask it something only your
+            lecturer would know. That is the whole test.
+          </p>
+
+          <div class="closer__ctas">
+            <!--
+              README: replace both store links when the Play listing is live.
+              Until then this resolves to itself rather than a 404.
+            -->
+            <a class="btn btn--primary" href="#get" data-store-link>
+              Get it on Google Play
+              <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn--ghost" href="pricing.html">See pricing</a>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <div class="footer__inner">
+            <div class="footer__brand">
+              <p class="footer__mark">ALS<sup>*</sup></p>
+              <p class="footer__blurb">
+                An AI study companion that reads one library — the one you
+                built. Made in Nairobi.
+              </p>
+            </div>
+
+            <div class="footer__cols">
+              <div>
+                <p class="footer__head">Product</p>
+                <ul class="footer__list">
+                  <li><a href="#home">Home</a></li>
+                  <li><a href="#about">About</a></li>
+                  <li><a href="pricing.html">Pricing</a></li>
+                  <li><a href="#faq">FAQs</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <p class="footer__head">Legal</p>
+                <ul class="footer__list">
+                  <li><a href="privacy.html">Privacy policy</a></li>
+                  <li><a href="terms.html">Terms of service</a></li>
+                  <li><a href="delete-account.html">Delete your account</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <p class="footer__head">Contact</p>
+                <ul class="footer__list">
+                  <li><a href="mailto:support@ardena.co.ke">Support</a></li>
+                  <li><a href="mailto:privacy@ardena.co.ke">Privacy</a></li>
+                  <li><a href="mailto:hello@ardena.co.ke">Say hello</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <p class="footer__legal">
+            &copy; <span data-year>2026</span> Ardena. All rights reserved.
+          </p>
+        </footer>
+      </section>
+    </main>
+
+    <script src="assets/main.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+# Everything here is meant to be found — the whole point of the site is that a
+# student searching for it, and Google Play's reviewer looking for the privacy
+# and deletion pages, both arrive.
+User-agent: *
+Allow: /
+
+Sitemap: https://als.ardena.co.ke/sitemap.xml

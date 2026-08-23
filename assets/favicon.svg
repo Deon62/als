@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ALS">
+  <!-- Square, like everything else on the site. -->
+  <rect width="64" height="64" fill="#09090B" />
+  <text
+    x="30"
+    y="45"
+    font-family="'Plus Jakarta Sans', 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="38"
+    font-weight="700"
+    letter-spacing="-1.5"
+    fill="#FFFFFF"
+    text-anchor="middle"
+  >A</text>
+  <!-- The mark's asterisk, reduced to the one dot that survives at 16px. -->
+  <rect x="47" y="14" width="7" height="7" fill="#007FFA" />
+</svg>
