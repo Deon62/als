@@ -1663,12 +1663,19 @@ tr:last-child td {
  * marketing pages do, so the dark band is one block rather than two.
  */
 
-.split--dark .split__inner,
-.split--dark.split .split__inner {
+.split--dark .split__inner {
   grid-template-columns: minmax(0, 1fr);
   max-width: 780px;
   text-align: center;
-  justify-items: center;
+}
+
+/* Centred, so the measure caps have to be centred with it. Without the auto
+   margins a 54ch tagline sits hard against the left of a 780px column and
+   reads as a mistake rather than a choice. */
+.split--dark .split__tagline,
+.split--dark .split__note {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .split--dark .split__head {
