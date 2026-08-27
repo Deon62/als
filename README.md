@@ -1,4 +1,4 @@
-# ALS website
+# als website
 
 Nine static pages. No build step, no framework, no dependencies. That is
 deliberate: the two pages Google Play checks (privacy, account deletion) have
@@ -21,10 +21,13 @@ website/
 ├── vercel.json           Clean URLs on Vercel
 ├── netlify.toml          Clean URLs and cache headers on Netlify
 ├── assets/
-│   ├── land.jpg          The social card image (no longer used as a hero)
+│   ├── als.png           The logo, as supplied
+│   ├── og.png            1200x630 link card, generated from the logo
+│   ├── favicon-32.png    Tab icon
+│   ├── favicon-180.png   Apple touch icon
+│   ├── icon-512.png      Large icon
 │   ├── styles.css        The whole design
-│   ├── main.js           The FAQ accordion, and the year in the footer
-│   └── favicon.svg
+│   └── main.js           The FAQ accordion, and the year in the footer
 └── scripts/
     └── no-em-dash.mjs    Run before committing
 ```
@@ -140,11 +143,6 @@ reviewer following any link lands within one click of them.
 
 Still outstanding before submission:
 
-- **`assets/og.png` (1200 × 630).** The social tags point at `land.jpg`, which
-  is a real file and does produce a preview card, but it is a photograph that
-  no longer appears anywhere on the site and is not drawn at card proportions.
-  Add the proper image, repoint `og:image` and `twitter:image`, and `land.jpg`
-  can then be deleted outright.
 - **HTTPS.** Play will not accept a privacy policy URL that is not.
 - **Submit the sitemap** in Google Search Console once the domain is live.
 
@@ -259,8 +257,10 @@ is kept for anything that turns out to be one continuous argument rather than a
 set of sections.
 
 **There is no photograph anywhere on the site.** `assets/land.jpg` used to be
-the landing hero, as a `cover` background under a dark scrim. It is kept only
-as the `og:image` until a proper card is drawn. Nothing renders it.
+the landing hero, as a `cover` background under a dark scrim. Both it and the
+scrim are gone from the stylesheet, and nothing references the file. It can be
+deleted whenever you like; it is only still on disk because it is in git
+history and deleting somebody's asset is their call.
 
 **The home hero is the same two colours, by a different mechanism.** The
 document pages carry a wave drifting along the bottom edge; the landing page
@@ -288,8 +288,35 @@ without re-checking:
   (`min(110vw, 52vh)`), or a short phone gets a form taller than its own hero.
 
 **The palette is the app's, to the hex**: `#007FFA` primary, `#09090B` ink,
-`#71717A` muted, `#E4E4E7` lines. Same typeface too, Plus Jakarta Sans. A site
-and an app that disagree about their blue look like two products.
+`#71717A` muted, `#E4E4E7` lines. A site and an app that disagree about their
+blue look like two products.
+
+**Two typefaces, with a clear division of labour.** Jost is the display face,
+matched to the wordmark in `assets/als.png`: a light geometric sans with a
+single-storey circular `a`, a bare `l` and an open `s`. The logo is Century
+Gothic lineage and Jost is Futura lineage, so it is a touch narrower than the
+drawn mark, but it is the closest cut with a Light weight on Google Fonts, and
+a matching Light is what the wordmark needs.
+
+Headings and the wordmark take it. Running text, tables and the legal pages
+stay on Plus Jakarta Sans, which is the app's typeface and is drawn for small
+sizes. A light geometric set at 14px over twenty screens of policy is a page
+nobody finishes.
+
+Both come from one Google Fonts request, so this costs no extra round trip.
+
+**The wordmark is always `als`, never `ALS`,** the way `ebay` and `adidas` are
+set. It is lowercase in prose, in `<title>` tags, in meta descriptions and in
+the JSON-LD. The one thing that can undo that is an uppercasing micro-label:
+`.split__eyebrow`, `.footer__head`, `.keyrows__key`, `th` and the rest of the
+`text-transform: uppercase` set will shout it back as ALS. Keep the wordmark
+out of those. There is one place this already bit, and `terms.html` section 01
+is called "What it is" rather than "What als is" because of it.
+
+**The logo is the icon and the link card.** `favicon-32`, `favicon-180` and
+`icon-512` are cropped from `als.png`; `og.png` is the wordmark set over the
+site's own swell at 1200x630. All four are generated, so if the logo is
+redrawn they need regenerating with it.
 
 **Pricing is transcribed from `src/theme/plans.js`** in the app repo. If a limit
 changes there, it has to change on `pricing.html` too; there is no shared

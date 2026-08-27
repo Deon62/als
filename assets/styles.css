@@ -397,10 +397,6 @@ ul {
   min-height: 100svh;
   padding: 148px var(--gutter) 104px;
   background-color: var(--night);
-  background-image: url("land.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   color: #ffffff;
   text-align: left;
   overflow: hidden;
@@ -426,18 +422,6 @@ ul {
 .hero--short {
   min-height: 0;
   padding: 164px var(--gutter) 92px;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(5, 16, 15, 0.74) 0%,
-    rgba(5, 16, 15, 0.54) 42%,
-    rgba(5, 16, 15, 0.88) 100%
-  );
 }
 
 /* --- The two-colour hero -----------------------------------------------
@@ -1843,4 +1827,81 @@ tr:last-child td {
   .hero--home::after {
     animation: none !important;
   }
+}
+
+/* --- The display face ---------------------------------------------------
+ *
+ * Jost, matched to the wordmark in `assets/als.png`: a light geometric sans
+ * with a single-storey circular `a`, a bare `l` and an open `s`. The logo is
+ * Century Gothic lineage and Jost is Futura lineage, so it is a touch
+ * narrower than the drawn mark, but it is the closest cut with a Light weight
+ * on Google Fonts, and a matching Light is what the wordmark needs.
+ *
+ * It is a DISPLAY face here, not the body face. Headings and the wordmark
+ * take it; running text, tables and the legal pages stay on Plus Jakarta
+ * Sans, which is the app's typeface and is drawn for small sizes. A light
+ * geometric set at 14px over twenty screens of policy is a page nobody
+ * finishes, and a site whose body text disagrees with the app looks like a
+ * second product.
+ */
+
+:root {
+  --display: "Jost", "Century Gothic", "Futura", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.hero__title,
+.section__title,
+.split__title,
+.closer__title,
+.doc__title,
+.numsteps__title,
+.plan__name,
+.plan__amount {
+  font-family: var(--display);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+}
+
+/* Jost runs lighter and wider than Plus Jakarta Sans at the same nominal
+   weight, so the big display sizes drop to 400 and lose most of the negative
+   tracking that was there to tighten a much tighter typeface. */
+.hero__title,
+.section__title,
+.closer__title,
+.doc__title,
+.plan__amount {
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.split__title {
+  font-weight: 400;
+  letter-spacing: -0.012em;
+}
+
+/* --- The wordmark -------------------------------------------------------
+ *
+ * Always lowercase, and never spelled with capitals anywhere on the site:
+ * the logo is `als`, the way `ebay` and `adidas` are set. The one thing that
+ * can undo that is an uppercasing micro-label, so the wordmark is kept out of
+ * `.split__eyebrow`, `.footer__head`, `.keyrows__key`, `th` and the rest of
+ * the `text-transform: uppercase` set. If you write it into one of those, the
+ * CSS will shout it back as ALS.
+ */
+
+.footer__mark {
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+}
+
+.footer__mark sup {
+  font-weight: 400;
 }
