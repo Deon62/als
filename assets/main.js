@@ -1,62 +1,45 @@
 /**
  * The only script on the site.
  *
- * The section-at-a-time scrolling is pure CSS — see `scroll-snap-type` in
- * styles.css — deliberately, so it works before this file has loaded and keeps
- * working if it fails to. What is left here is the two things CSS cannot do:
- * mark the nav link for the section you are actually looking at, and keep the
- * copyright year honest.
+ * The section-at-a-time scrolling is pure CSS, deliberately, so it works
+ * before this file has loaded and keeps working if it fails to. What is left
+ * here is the two things CSS cannot do on its own.
  */
 
 (function () {
   "use strict";
 
-  // --- Which section am I in? ---------------------------------------------
+  /* --- One question open at a time ---------------------------------------
+   *
+   * <details> has no group behaviour in browsers that predate the `name`
+   * attribute, and `name` is still too new to rely on. Closing the siblings
+   * by hand covers every browser and costs four lines.
+   *
+   * Scoped per .faq block, so a page with two separate lists does not have
+   * one list closing the other's answers.
+   */
 
-  var links = Array.prototype.slice.call(
-    document.querySelectorAll(".nav__link[href^='#']")
-  );
+  var lists = document.querySelectorAll(".faq");
 
-  if (links.length && "IntersectionObserver" in window) {
-    var byId = {};
-    var sections = [];
+  Array.prototype.forEach.call(lists, function (list) {
+    var items = list.querySelectorAll(".faq__item");
 
-    links.forEach(function (link) {
-      var id = link.getAttribute("href").slice(1);
-      var section = document.getElementById(id);
-      if (!section) return;
-      byId[id] = link;
-      sections.push(section);
-    });
+    Array.prototype.forEach.call(items, function (item) {
+      item.addEventListener("toggle", function () {
+        if (!item.open) return;
 
-    var mark = function (id) {
-      links.forEach(function (link) {
-        if (link === byId[id]) link.setAttribute("aria-current", "true");
-        else link.removeAttribute("aria-current");
-      });
-    };
-
-    // The threshold is high because sections are a full screen tall: at 0.5 a
-    // section is "visible" while it is only half on screen, and two of them
-    // would qualify at once during a scroll.
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) mark(entry.target.id);
+        Array.prototype.forEach.call(items, function (other) {
+          if (other !== item) other.open = false;
         });
-      },
-      { threshold: 0.55 }
-    );
-
-    sections.forEach(function (section) {
-      observer.observe(section);
+      });
     });
-  }
+  });
 
-  // --- Year ----------------------------------------------------------------
+  /* --- The year ---------------------------------------------------------- */
 
   var years = document.querySelectorAll("[data-year]");
   var now = String(new Date().getFullYear());
+
   Array.prototype.forEach.call(years, function (node) {
     node.textContent = now;
   });
