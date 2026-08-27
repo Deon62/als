@@ -22,6 +22,10 @@ website/
 ├── netlify.toml          Clean URLs and cache headers on Netlify
 ├── assets/
 │   ├── als.png           The logo, as supplied
+│   ├── play.png          Google Play badge, as supplied
+│   ├── app.png           App Store badge, as supplied
+│   ├── badge-play.png    Play badge, cropped and normalised
+│   ├── badge-app.png     App Store badge, cropped and normalised
 │   ├── og.png            1200x630 link card, generated from the logo
 │   ├── favicon-32.png    Tab icon
 │   ├── favicon-180.png   Apple touch icon
@@ -150,10 +154,32 @@ Still outstanding before submission:
 
 ## The design
 
-**Nothing is rounded, with one exception.** `border-radius: 0` is set once on
+**Nothing is rounded, with two exceptions.** `border-radius: 0` is set once on
 `*` in the reset, and the floating nav pill puts it back for itself. Cards,
 buttons, tables and the plan grid are all square. A radius anywhere else is a
 mistake rather than a variation.
+
+The second exception is the store badges, and it is not negotiable: Google and
+Apple both require their official artwork and forbid rebuilding the logo, so
+their rounded corners are baked into the bitmaps. No radius in this stylesheet
+is producing them and there is nothing to remove.
+
+**The badges are normalised, not just dropped in.** Google ships its badge edge
+to edge with real transparency; Apple ships its own inset inside an 800x800
+opaque black square. Both are cropped to the button itself, the corners outside
+the rounded rectangle are made transparent by flooding inwards from the four
+corners (the grey outline is a closed curve, so the fill cannot leak into the
+badge interior), and both are scaled to a common height of 160px. They land at
+539px and 538px wide, so at any CSS height they match within a pixel.
+
+If either badge is replaced, regenerate both together or they stop matching.
+`play.png` and `app.png` are kept as the untouched sources.
+
+**The App Store badge is dimmed and is not a link,** because it reads "Download
+on the App Store" and there is no iOS app yet. It carries `aria-disabled`, alt
+text that says "coming soon", and a visible line underneath, because opacity is
+not information. When the app ships, make it an `<a>`, drop `.badge--soon`, and
+delete the note.
 
 **The nav floats.** It is a fixed, frosted pill centred over the page rather
 than a bar spanning the window, which is why it is translucent: a solid white

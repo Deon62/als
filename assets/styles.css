@@ -242,81 +242,68 @@ ul {
   transform: translateX(3px);
 }
 
-/* --- Store buttons ------------------------------------------------------
+/* --- Store badges -------------------------------------------------------
  *
- * Built here rather than pulled in as official badge artwork: the badges are
- * fixed-size raster images that would be the only rounded, off-palette things
- * on the page. These carry the same information at the same sizes and inherit
- * the site's own type.
+ * The official artwork from Google and Apple, not a redrawing of it. Both
+ * brand guidelines require their own badge and forbid rebuilding the logo, so
+ * this is the one place on the site where the artwork is somebody else's and
+ * cannot be altered.
+ *
+ * That makes it the second exception to "nothing is rounded". The corners are
+ * baked into the bitmaps and may not be squared off, so there is no radius in
+ * this stylesheet doing it, and nothing to remove.
+ *
+ * The two files are normalised to a common height of 160px and land within a
+ * pixel of each other in width (539 and 538), because Apple ships its badge
+ * inset in a large opaque square and Google ships its own edge to edge. They
+ * are cropped to the button itself and the corners outside the rounded
+ * rectangle are transparent, so both sit on the night ground without a black
+ * card behind them. Regenerate both together if either is replaced, or they
+ * will stop matching.
  */
 
 .stores {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  align-items: center;
+  gap: 14px;
 }
 
 .stores--center {
   justify-content: center;
 }
 
-.store {
+.badge {
   display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 24px 11px 18px;
+  line-height: 0;
   text-decoration: none;
-  border: 1px solid var(--ink);
-  background: var(--ink);
-  color: #ffffff;
-  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+  transition: opacity 0.15s ease;
 }
 
-.store:hover {
-  opacity: 0.86;
+.badge img {
+  height: clamp(44px, 4.2vw, 54px);
+  width: auto;
 }
 
-.store--light {
-  background: transparent;
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.34);
+.badge:hover {
+  opacity: 0.84;
 }
 
-.store--light:hover {
-  background: #ffffff;
-  color: var(--ink);
-  opacity: 1;
-}
-
-.store__glyph {
-  flex: none;
-}
-
-.store__text {
-  display: grid;
-  gap: 3px;
-  text-align: left;
-}
-
-.store__text small {
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  opacity: 0.66;
-  line-height: 1;
-}
-
-.store__text strong {
-  font-size: 15.5px;
-  font-weight: 600;
-  letter-spacing: -0.012em;
-  line-height: 1.1;
-}
-
-.store[aria-disabled="true"] {
-  opacity: 0.4;
+/* Apple's badge reads "Download on the App Store", which is not true yet, so
+   it is dimmed, is not a link, and carries a line underneath saying so. The
+   alt text says it too, because opacity is not information. */
+.badge--soon {
+  opacity: 0.38;
   pointer-events: none;
+}
+
+/* Full basis so it drops onto its own line, then it inherits the alignment of
+   whatever section it is in: left in a hero, centred in a closer. */
+.stores__note {
+  flex-basis: 100%;
+  margin-top: 2px;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.45);
 }
 
 /* --- Sections ----------------------------------------------------------- */
@@ -1472,7 +1459,7 @@ tr:last-child td {
   color: var(--faint);
 }
 
-.split a:not(.btn):not(.store) {
+.split a:not(.btn):not(.badge) {
   color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -1672,7 +1659,7 @@ tr:last-child td {
   color: var(--faint);
 }
 
-.split--dark a:not(.btn):not(.store) {
+.split--dark a:not(.btn):not(.badge) {
   color: #ffffff;
 }
 
