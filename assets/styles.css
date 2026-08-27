@@ -13,9 +13,12 @@
       is opt-in per page with `class="snap"` on <html>, because a legal page
       that moves a screen at a time is a legal page nobody finishes.
 
-   3. Legal and support pages opt out of that: one column, one measure, one
-      left edge the whole way down, which is what makes a long document feel
-      navigable rather than endless.
+   3. Legal and support pages opt out of that. They open on a full-viewport
+      hero, then run as `.split` sections: the heading of each one held in a
+      sticky column beside its detail, alternating sides down the page, so a
+      reader hunting for a single clause can travel the headings and stop
+      once. `.doc` is the older single-column treatment, kept for anything
+      that is genuinely one continuous argument.
 
    4. The palette is the app's, to the hex.
    ========================================================================= */
@@ -1275,4 +1278,437 @@ tr:last-child td {
   color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* --- Document hero ------------------------------------------------------
+ *
+ * Legal and support pages get a hero that fills the viewport, the same as a
+ * marketing page, and then hand over to the split sections below. The page
+ * opens with one idea rather than a wall: a title, a line saying what the
+ * document is for, when it was last touched, and a cue that there is more
+ * below the fold.
+ *
+ * These pages do NOT get scroll snapping (no `class="snap"` on <html>). The
+ * hero is a full screen you scroll past once; the detail underneath scrolls
+ * freely, because a document that moves one screen at a time is a document
+ * nobody finishes.
+ */
+
+.hero--doc {
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 152px var(--gutter) 120px;
+  background-color: var(--night);
+  background-image: none;
+  align-items: center;
+}
+
+.hero--doc::after {
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.05) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      120% 90% at 6% 0%,
+      rgba(0, 127, 250, 0.17) 0%,
+      transparent 62%
+    );
+}
+
+.hero__eyebrow {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.hero--doc .hero__title {
+  font-size: clamp(2.4rem, 5.4vw, 4rem);
+  max-width: 18ch;
+}
+
+.hero__meta {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  max-width: 58ch;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.hero__meta code {
+  font-size: 0.94em;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* The cue is an anchor, not an icon: it says where it goes, and tapping it
+   works before any script has loaded. Absolutely placed so it sits on the
+   fold rather than pushing the title off centre. */
+.hero__cue {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 4px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+}
+
+.hero__cue:hover {
+  color: #ffffff;
+}
+
+.hero__cue svg {
+  animation: cue 2.4s ease-in-out infinite;
+}
+
+@keyframes cue {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cue svg {
+    animation: none;
+  }
+}
+
+/* --- Split sections -----------------------------------------------------
+ *
+ * The body of every document page: one idea per section, its heading held in
+ * one column and its detail in the other, alternating sides down the page.
+ *
+ * Why two columns rather than one long measure. A legal page read top to
+ * bottom in a single column gives you no sense of where you are or how much
+ * is left. Here the left column is a standing summary of the section you are
+ * in and the right is the binding detail, so somebody skimming for one clause
+ * travels down the headings and stops once.
+ *
+ * The sides alternate because a page of identical rows reads as one object;
+ * flipping each section makes the boundary between two of them visible
+ * without drawing a rule. `order` does the flipping, so the DOM keeps
+ * heading-then-detail on every section and a screen reader or a phone gets
+ * them in that order regardless of which side they render on.
+ */
+
+.split {
+  padding: clamp(64px, 8vw, 104px) var(--gutter);
+  background: var(--canvas);
+}
+
+.split--alt {
+  background: var(--surface);
+}
+
+.split--dark {
+  background: var(--ink);
+  color: #ffffff;
+}
+
+.split__inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(30px, 4vw, 56px);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .split__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  }
+
+  .split--alt .split__inner {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  }
+
+  .split--alt .split__head {
+    order: 2;
+  }
+
+  .split--alt .split__body {
+    order: 1;
+  }
+
+  /* The heading column is shorter than its detail nearly every time, so it
+     rides down with you rather than leaving half a screen of white opposite
+     a long list. Offset by the floating nav so the two never collide. */
+  .split__head {
+    position: sticky;
+    top: calc(var(--nav-top) + var(--nav-h) + 32px);
+  }
+}
+
+.split__eyebrow {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 14px;
+}
+
+.split__title {
+  font-size: clamp(1.6rem, 2.7vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.14;
+}
+
+.split__tagline {
+  margin-top: 16px;
+  max-width: 44ch;
+  color: var(--muted);
+  font-size: clamp(15px, 1.4vw, 16.5px);
+  line-height: 1.68;
+}
+
+.split__note {
+  margin-top: 22px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--faint);
+}
+
+.split a:not(.btn):not(.store) {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Body blocks -----------------------------------------------------------
+ *
+ * Four shapes, and no more. Each is bounded by hairlines so the detail column
+ * reads as a table of statements rather than loose prose, which is what stops
+ * a reader losing their place halfway down a long one.
+ */
+
+.rows {
+  border-top: 1px solid var(--line);
+}
+
+.rows > li {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.68;
+}
+
+.rows > li strong {
+  font-weight: 600;
+}
+
+.split--alt .rows,
+.split--alt .rows > li,
+.split--alt .keyrows,
+.split--alt .keyrows > li,
+.split--alt .numsteps,
+.split--alt .numsteps > li,
+.split--alt .prose,
+.split--alt .table-wrap,
+.split--alt .callout {
+  border-color: #dcdce0;
+}
+
+/* Label on the left, sentence on the right. The label is the thing being
+   defined, so it takes the accent. */
+.keyrows {
+  border-top: 1px solid var(--line);
+}
+
+.keyrows > li {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 6px;
+}
+
+@media (min-width: 620px) {
+  .keyrows > li {
+    grid-template-columns: 168px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+}
+
+.keyrows__key {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  padding-top: 3px;
+}
+
+.keyrows__text {
+  font-size: 14.5px;
+  line-height: 1.68;
+  color: var(--muted);
+}
+
+.keyrows__text strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* A block of connected paragraphs, for the places a list would be a lie: a
+   worked example, or a chain of reasoning that has to be read in order. */
+.prose {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 22px 0;
+}
+
+.prose p {
+  margin-top: 15px;
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--muted);
+}
+
+.prose p:first-child {
+  margin-top: 0;
+}
+
+.prose strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Ordered, and it matters: these are steps somebody follows in sequence. */
+.numsteps {
+  border-top: 1px solid var(--line);
+}
+
+.numsteps > li {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 4px 22px;
+}
+
+@media (min-width: 620px) {
+  .numsteps > li {
+    grid-template-columns: 46px minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .numsteps__no {
+    grid-row: span 2;
+  }
+}
+
+.numsteps__no {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+  padding-top: 4px;
+}
+
+.numsteps__title {
+  font-size: 16.5px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+.numsteps__text {
+  font-size: 14.5px;
+  line-height: 1.68;
+  color: var(--muted);
+}
+
+/* Tables, callouts and FAQ lists already exist for the old document layout.
+   Inside a split column they only need their leading margin dropped, the
+   grid gap supplies it. */
+.split__body > :first-child,
+.split__body > .faq {
+  margin-top: 0;
+}
+
+.split--alt .callout {
+  background: var(--canvas);
+}
+
+.split--alt .table-wrap th {
+  background: var(--canvas);
+}
+
+/* --- The closing section on a document page -----------------------------
+ *
+ * One column, centred, and dark: the page has ended, and the only thing left
+ * to say is who to write to. It carries the footer inside it the way the
+ * marketing pages do, so the dark band is one block rather than two.
+ */
+
+.split--dark .split__inner,
+.split--dark.split .split__inner {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 780px;
+  text-align: center;
+  justify-items: center;
+}
+
+.split--dark .split__head {
+  position: static;
+}
+
+.split--dark .split__eyebrow {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.split--dark .split__tagline {
+  max-width: 54ch;
+  color: var(--faint);
+}
+
+.split--dark a:not(.btn):not(.store) {
+  color: #ffffff;
+}
+
+.contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px 44px;
+  margin-top: 34px;
+  font-size: 14.5px;
+  color: var(--faint);
+}
+
+.contacts strong {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+  margin-bottom: 7px;
+}
+
+.split--dark .stores {
+  justify-content: center;
+  margin-top: 34px;
 }
