@@ -21,7 +21,7 @@ website/
 ├── vercel.json           Clean URLs on Vercel
 ├── netlify.toml          Clean URLs and cache headers on Netlify
 ├── assets/
-│   ├── land.jpg          The hero background, and the social card image
+│   ├── land.jpg          The social card image (no longer used as a hero)
 │   ├── styles.css        The whole design
 │   ├── main.js           The FAQ accordion, and the year in the footer
 │   └── favicon.svg
@@ -140,10 +140,11 @@ reviewer following any link lands within one click of them.
 
 Still outstanding before submission:
 
-- **`assets/og.png` (1200 × 630).** The social tags currently point at
-  `land.jpg`, which is a real file and does produce a preview card, but it is
-  the hero photograph rather than something designed at card proportions. Add
-  the proper image and repoint the `og:image` and `twitter:image` tags.
+- **`assets/og.png` (1200 × 630).** The social tags point at `land.jpg`, which
+  is a real file and does produce a preview card, but it is a photograph that
+  no longer appears anywhere on the site and is not drawn at card proportions.
+  Add the proper image, repoint `og:image` and `twitter:image`, and `land.jpg`
+  can then be deleted outright.
 - **HTTPS.** Play will not accept a privacy policy URL that is not.
 - **Submit the sitemap** in Google Search Console once the domain is live.
 
@@ -158,10 +159,10 @@ mistake rather than a variation.
 
 **The nav floats.** It is a fixed, frosted pill centred over the page rather
 than a bar spanning the window, which is why it is translucent: a solid white
-bar would cut the hero image in half, and a solid dark one would vanish into
-it. There is a `@supports not (backdrop-filter)` fallback that turns it nearly
-opaque, because without one, a browser lacking blur shows dark text on a
-near-transparent white over a dark photograph.
+bar would cut the top off every hero, and a solid dark one would vanish into
+them. There is a `@supports not (backdrop-filter)` fallback that turns it
+nearly opaque, because without one, a browser lacking blur shows dark text on a
+near-transparent white over a near-black hero.
 
 **One section at a time, on desktop.** CSS scroll snapping, not JavaScript:
 
@@ -257,12 +258,34 @@ in that order regardless of which side they render on.
 is kept for anything that turns out to be one continuous argument rather than a
 set of sections.
 
-**The hero image is the section**, not a panel inside it: `assets/land.jpg` as
-a `cover` background with a dark scrim over it. The scrim is not decoration,
-white text on a photograph is unreadable the moment the photograph changes, and
-it keeps the contrast whatever image is dropped in. To swap the image, replace
-that file; nothing else changes. Inner pages drop the photograph entirely,
-because repeating one image on every page turns it into wallpaper.
+**There is no photograph anywhere on the site.** `assets/land.jpg` used to be
+the landing hero, as a `cover` background under a dark scrim. It is kept only
+as the `og:image` until a proper card is drawn. Nothing renders it.
+
+**The home hero is the same two colours, by a different mechanism.** The
+document pages carry a wave drifting along the bottom edge; the landing page
+carries a sculptural mass anchored off the bottom-right corner that *turns*
+rather than travels. Two solid white organic forms, one clockwise at 120s, one
+anticlockwise at 88s, at different sizes. Their union is one mass whose profile
+never repeats, and because both are the same white there is no seam to give the
+two shapes away.
+
+The forms are radial harmonics, not circles, and that is load-bearing:
+rotating a circle shows nothing at all. Each one is 14 samples of
+`r(t) = R(1 + Σ aₖ cos(kt + φₖ))` joined into a closed Catmull-Rom spline, and
+every degree of rotation presents a different edge.
+
+Two things constrain the geometry, and both will break visibly if changed
+without re-checking:
+
+- **The mass must clear the type at every rotation.** It is placed by its
+  circumscribed radius against the content box, which is why the home headline
+  is held to `15ch` rather than the `24ch` every other hero uses. At 1440px the
+  24ch measure is about 1135px wide and runs straight into the form.
+- **Below 900px it moves to the bottom-right corner** and the hero takes
+  bottom padding to clear it, the same arrangement the document pages use. The
+  size is set on the viewport width but capped against the height
+  (`min(110vw, 52vh)`), or a short phone gets a form taller than its own hero.
 
 **The palette is the app's, to the hex**: `#007FFA` primary, `#09090B` ink,
 `#71717A` muted, `#E4E4E7` lines. Same typeface too, Plus Jakarta Sans. A site

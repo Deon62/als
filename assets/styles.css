@@ -1742,3 +1742,105 @@ tr:last-child td {
   background: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.8);
 }
+
+/* --- The home hero ------------------------------------------------------
+ *
+ * Same two colours as every other hero, a different mechanism. The document
+ * pages carry a wave that drifts along the bottom edge; the landing page
+ * carries a single sculptural mass anchored off the bottom-right corner that
+ * turns rather than travels.
+ *
+ * It is the same union trick underneath: two solid white organic forms, one
+ * turning clockwise, one anticlockwise, at different sizes and speeds. Their
+ * union is one mass whose profile never repeats, and because both are the
+ * same white there is no seam to give the two shapes away.
+ *
+ * The forms are not circles, and that is the whole point. Rotating a circle
+ * shows nothing. These are radial harmonics, so every degree of rotation
+ * presents a different edge.
+ */
+
+.hero--home {
+  background-color: var(--night);
+  background-image: none;
+  padding-bottom: clamp(104px, 18vh, 220px);
+}
+
+/* No photograph underneath, so no scrim over it. */
+.hero--home::before,
+.hero--home::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: auto 0 0 auto;
+  width: var(--z);
+  height: var(--z);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  will-change: transform;
+}
+
+.hero--home::before {
+  --z: 118vh;
+  right: -62vh;
+  bottom: -45vh;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cpath fill='%23ffffff' d='M461.6 250C452.2 279.8 425.5 304.2 407.5 325.8C389.5 347.5 373.2 363.7 353.6 379.9C333.9 396.1 313.5 415 289.5 423C265.5 431 235.1 432.7 209.4 427.9C183.7 423 158.8 409 135.2 394C111.6 378.9 86.4 361.6 68 337.6C49.6 313.7 27.1 280.3 24.9 250C22.7 219.7 35.3 178.4 55.1 156.1C74.8 133.8 116 123 143.3 116.2C170.7 109.4 195.6 119.1 219.3 115.4C243 111.7 258.3 99.5 285.6 94.1C312.9 88.7 353.3 74.3 383.1 83.1C412.8 91.9 450.9 119.1 464 146.9C477.1 174.7 471 220.2 461.6 250Z'/%3E%3C/svg%3E");
+  animation: turn-a 120s linear infinite;
+}
+
+.hero--home::after {
+  --z: 90vh;
+  right: -29vh;
+  bottom: -49vh;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cpath fill='%23ffffff' d='M424.2 250C412.4 272.6 371 283.8 355.5 300.8C340 317.8 342.6 333 331.3 351.9C319.9 370.8 308.8 396.8 287.4 414C266.1 431.2 233 452.8 203.2 455.1C173.3 457.4 124.3 450.5 108.2 427.8C92.2 405.1 103.4 348.5 107 318.9C110.6 289.2 128.2 272.2 129.8 250C131.3 227.8 112.8 206.4 116.3 185.6C119.8 164.9 135.1 144.1 150.7 125.5C166.3 106.9 186.3 83.9 209.9 74.1C233.4 64.3 267.1 60.2 291.8 66.9C316.5 73.7 335.7 98 358.2 114.4C380.6 130.7 415.6 142.4 426.6 165C437.6 187.6 436.1 227.4 424.2 250Z'/%3E%3C/svg%3E");
+  animation: turn-b 88s linear infinite;
+}
+
+/* The headline is held to 15ch here rather than the 24ch every other hero
+   uses. It has to clear the mass on the right, and a short headline stacked
+   against a big form is the composition anyway. */
+.hero--home .hero__title {
+  max-width: 15ch;
+}
+
+/* Below 900px the mass drops to the bottom-right corner and the hero takes
+   the bottom padding to clear it, the same arrangement the document pages
+   use. Sized on the width, but capped against the height so a short phone
+   does not get a form taller than its own hero. */
+@media (max-width: 899px) {
+  .hero--home {
+    padding-bottom: 34vh;
+  }
+
+  .hero--home::before {
+    --z: min(110vw, 52vh);
+    right: -25vw;
+    bottom: -45vw;
+  }
+
+  .hero--home::after {
+    --z: min(85vw, 45vh);
+    right: -10vw;
+    bottom: -40vw;
+  }
+}
+
+@keyframes turn-a {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes turn-b {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero--home::before,
+  .hero--home::after {
+    animation: none !important;
+  }
+}
