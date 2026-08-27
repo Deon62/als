@@ -416,9 +416,7 @@ ul {
 .hero--page {
   min-height: 62vh;
   min-height: 62svh;
-  padding: 168px var(--gutter) 104px;
-  background-color: var(--night);
-  background-image: none;
+  padding: 168px var(--gutter) clamp(150px, 24vh, 250px);
 }
 
 .hero--page .hero__title {
@@ -442,17 +440,100 @@ ul {
   );
 }
 
+/* --- The two-colour hero -----------------------------------------------
+ *
+ * Every hero that is not the landing photograph is exactly two colours: the
+ * night ground, and white. No gradient, no tint, no third value. What moves
+ * is the boundary between them.
+ *
+ * The white mass is two wave tiles drawn as inline SVG data URIs on the
+ * hero's own ::before and ::after, so it costs nothing in markup and there is
+ * nothing to repeat across seven pages. They are both solid white, which is
+ * the whole trick: two identical-coloured shapes sliding past each other at
+ * different speeds and in opposite directions read as one mass whose
+ * silhouette keeps changing, rather than as two waves.
+ *
+ * Each tile is 720px wide and the element is 720px wider than the hero, so a
+ * translate of exactly one tile loops seamlessly at any viewport width. The
+ * transform is the only thing animated, so it stays on the compositor.
+ */
+
+.hero--page,
+.hero--doc {
+  background-color: var(--night);
+  background-image: none;
+}
+
+.hero--page::before,
+.hero--page::after,
+.hero--doc::before,
+.hero--doc::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: auto auto 0 0;
+  width: calc(100% + 720px);
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 720px 100%;
+  will-change: transform;
+}
+
+/* The taller, slower one, and the one that sets the overall height of the
+   mass. Drifts left. */
+.hero--page::before,
+.hero--doc::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 300' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0 100C90 160 270 160 360 100C450 40 630 40 720 100L720 300L0 300Z'/%3E%3C/svg%3E");
+  animation: swell-a 34s linear infinite;
+}
+
+/* The quicker one, drifting the other way, at twice the frequency and a
+   little more amplitude. The frequencies have to differ: two waves of the
+   same period just look like one thicker wave, and the taller of them hides
+   the other at every point. At double frequency this one's crests rise above
+   the first's and its troughs fall below them, so the union of the two is a
+   silhouette that genuinely changes rather than a shape that slides. */
+.hero--page::after,
+.hero--doc::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 300' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0 105C45 180 135 180 180 105C225 30 315 30 360 105C405 180 495 180 540 105C585 30 675 30 720 105L720 300L0 300Z'/%3E%3C/svg%3E");
+  animation: swell-b 23s linear infinite;
+}
+
+.hero--doc::before,
+.hero--doc::after {
+  height: clamp(150px, 30vh, 300px);
+}
+
+.hero--page::before,
 .hero--page::after {
-  background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.045) 0%,
-      transparent 58%
-    ),
-    radial-gradient(
-      118% 88% at 8% 0%,
-      rgba(0, 127, 250, 0.15) 0%,
-      transparent 64%
-    );
+  height: clamp(110px, 20vh, 200px);
+}
+
+@keyframes swell-a {
+  to {
+    transform: translateX(-720px);
+  }
+}
+
+@keyframes swell-b {
+  from {
+    transform: translateX(-720px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* The sitewide reduced-motion block already flattens every duration, but say
+   it outright here: the hero should be a still two-colour composition, not a
+   frozen frame of a fast one. */
+@media (prefers-reduced-motion: reduce) {
+  .hero--page::before,
+  .hero--page::after,
+  .hero--doc::before,
+  .hero--doc::after {
+    animation: none !important;
+  }
 }
 
 .hero__inner {
@@ -1294,104 +1375,20 @@ tr:last-child td {
  * nobody finishes.
  */
 
+/* The title clears the white mass by sitting in the upper part of the screen,
+   the way it does in a two-tone poster. The bottom padding is the swell's own
+   height plus room to breathe, so the two never touch however tall the type
+   clamps to. */
 .hero--doc {
   min-height: 100vh;
   min-height: 100svh;
-  padding: 152px var(--gutter) 120px;
-  background-color: var(--night);
-  background-image: none;
+  padding: 152px var(--gutter) clamp(190px, 34vh, 360px);
   align-items: center;
-}
-
-.hero--doc::after {
-  background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.05) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      120% 90% at 6% 0%,
-      rgba(0, 127, 250, 0.17) 0%,
-      transparent 62%
-    );
-}
-
-.hero__eyebrow {
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--primary);
-  margin-bottom: 20px;
 }
 
 .hero--doc .hero__title {
   font-size: clamp(2.4rem, 5.4vw, 4rem);
   max-width: 18ch;
-}
-
-.hero__meta {
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  max-width: 58ch;
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.56);
-}
-
-.hero__meta code {
-  font-size: 0.94em;
-  padding: 2px 6px;
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.86);
-}
-
-/* The cue is an anchor, not an icon: it says where it goes, and tapping it
-   works before any script has loaded. Absolutely placed so it sits on the
-   fold rather than pushing the title off centre. */
-.hero__cue {
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  bottom: 40px;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 4px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.62);
-  text-decoration: none;
-  white-space: nowrap;
-  transition: color 0.15s ease;
-}
-
-.hero__cue:hover {
-  color: #ffffff;
-}
-
-.hero__cue svg {
-  animation: cue 2.4s ease-in-out infinite;
-}
-
-@keyframes cue {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(4px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__cue svg {
-    animation: none;
-  }
 }
 
 /* --- Split sections -----------------------------------------------------
@@ -1718,4 +1715,30 @@ tr:last-child td {
 .split--dark .stores {
   justify-content: center;
   margin-top: 34px;
+}
+
+/* The version stamp at the foot of a legal page. It used to sit under the
+   title, where it competed with it; down here it is the last thing you read,
+   which is where a "last updated" line actually belongs. It stays on the page
+   because a policy with no effective date is not much of a policy, and the
+   package name is what a Play reviewer checks this page for. */
+.split__note--stamp {
+  margin-top: 40px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  max-width: 60ch;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.split--dark .split__note--stamp strong {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+.split--dark .split__note--stamp code {
+  font-size: 0.94em;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
 }
