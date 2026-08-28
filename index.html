@@ -42,11 +42,59 @@
         "description": "An AI study companion that answers only from a student's own lecture notes, slides and past papers, citing the exact page it used.",
         "url": "https://als.ardena.co.ke/",
         "inLanguage": "en",
-        "author": { "@type": "Organization", "name": "Ardena" },
+        "author": { "@type": "Organization", "name": "Ardena Platforms Africa Ltd" },
         "offers": [
           { "@type": "Offer", "name": "Focus", "price": "150", "priceCurrency": "KES" },
           { "@type": "Offer", "name": "Synapse", "price": "350", "priceCurrency": "KES" },
           { "@type": "Offer", "name": "Friends", "price": "1250", "priceCurrency": "KES" }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How is this different from a general AI chatbot?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A general chatbot answers from the whole internet and has never seen your syllabus. als answers only from the material you filed, so a plausible answer and a correct one stop being indistinguishable: you can open the page it cited and check."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What can I upload?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "PDFs, lecture slides, images and photographs of handwritten notes. A scanned page has to be legible to you before it can be legible to the tutor. File size limits depend on your plan and are listed on the pricing page."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if my library has nothing on a topic?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "als tells you so, and lists the lectures it does have on file, rather than inventing an answer. That refusal is deliberate and it is the feature that took the most work."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you train AI models on my coursework?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Your notes, files, questions and answers are never used to train any model, ours or anyone else's. They are not sold, not rented, and not shared with advertisers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there an iPhone version?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not yet. als is on Android first. The App Store button on this site is marked coming soon rather than linked, and it will change the day there is something to link to."
+            }
+          }
         ]
       }
     </script>
@@ -179,6 +227,58 @@
         </div>
       </section>
 
+      <section class="section" id="faq" aria-labelledby="faq-h">
+        <div class="shell">
+          <h2 class="section__title" id="faq-h">The questions people ask first.</h2>
+          <p class="section__lede">
+            Five of them here, the rest on the
+            <a href="/faq" style="color: var(--primary)">FAQ page</a>.
+          </p>
+
+          <div class="faq">
+            <details class="faq__item">
+              <summary class="faq__q">
+                How is this different from a general AI chatbot?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a">A general chatbot answers from the whole internet and has never seen your syllabus. als answers only from the material you filed, so a plausible answer and a correct one stop being indistinguishable: you can open the page it cited and check.</p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                What can I upload?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a">PDFs, lecture slides, images and photographs of handwritten notes. A scanned page has to be legible to you before it can be legible to the tutor. File size limits depend on your plan and are listed on the <a href="/pricing">pricing page</a>.</p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                What happens if my library has nothing on a topic?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a">als tells you so, and lists the lectures it does have on file, rather than inventing an answer. That refusal is deliberate and it is the feature that took the most work.</p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                Do you train AI models on my coursework?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a">No. Your notes, files, questions and answers are never used to train any model, ours or anyone else&rsquo;s. They are not sold, not rented, and not shared with advertisers.</p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__q">
+                Is there an iPhone version?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </summary>
+              <p class="faq__a">Not yet. als is on Android first. The App Store button on this site is marked coming soon rather than linked, and it will change the day there is something to link to.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
       <section class="section section--dark section--end" id="get" aria-labelledby="get-h">
         <div class="closer">
           <h2 class="closer__title" id="get-h">Bring your own coursework.</h2>
@@ -234,14 +334,14 @@
                 <p class="footer__head">Company</p>
                 <ul class="footer__list">
                   <li><a href="/support">Support</a></li>
-                  <li><a href="mailto:hello@ardena.co.ke">Say hello</a></li>
+                  <li><a class="mail" href="mailto:info@ardena.co.ke"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" /><path d="m2.5 6 9.5 6.6L21.5 6" /></svg><span>Say hello</span></a></li>
                 </ul>
               </div>
             </div>
           </div>
 
           <p class="footer__legal">
-            &copy; <span data-year>2026</span> Ardena. All rights reserved.
+            &copy; <span data-year>2026</span> Ardena Platforms Africa Ltd. All rights reserved.
           </p>
         </footer>
       </section>
