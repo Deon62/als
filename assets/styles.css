@@ -343,14 +343,9 @@ ul {
   text-align: center;
 }
 
-.section--centered .section__lede,
-.section--centered .pricing__note {
+.section--centered .section__lede {
   margin-left: auto;
   margin-right: auto;
-}
-
-.section--centered .pricing__note {
-  text-align: center;
 }
 
 .section--dark .section__lede {
@@ -982,17 +977,6 @@ ul {
   .plan__foot {
     padding-top: 14px;
   }
-}
-
-.pricing__note {
-  margin-top: 24px;
-  font-size: 13px;
-  color: var(--faint);
-  max-width: 66ch;
-}
-
-.pricing__note a {
-  color: var(--primary);
 }
 
 /* --- Comparison table --------------------------------------------------- */
@@ -1716,24 +1700,21 @@ tr:last-child td {
 
 /* --- The closing section on a document page -----------------------------
  *
- * One column, centred, and dark: the page has ended, and the only thing left
- * to say is who to write to. It carries the footer inside it the way the
- * marketing pages do, so the dark band is one block rather than two.
+ * One column and dark: the page has ended, and the only thing left to say is
+ * who to write to.
+ *
+ * It is left aligned, on the footer's measure rather than the document's.
+ * The dark closing block and the footer under it are one black band with a
+ * gap in the middle, so their left edges have to be the same edge: 50px of
+ * disagreement inside one band reads as a mistake, where the step from the
+ * white sections above happens across a colour change and is not noticed.
+ * A centred block here read as a separate page stapled on.
  */
 
 .split--dark .split__inner {
   grid-template-columns: minmax(0, 1fr);
-  max-width: 780px;
-  text-align: center;
-}
-
-/* Centred, so the measure caps have to be centred with it. Without the auto
-   margins a 54ch tagline sits hard against the left of a 780px column and
-   reads as a mistake rather than a choice. */
-.split--dark .split__tagline,
-.split--dark .split__note {
-  margin-left: auto;
-  margin-right: auto;
+  max-width: var(--shell);
+  text-align: left;
 }
 
 .split--dark .split__head {
@@ -1756,7 +1737,6 @@ tr:last-child td {
 .contacts {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 20px 44px;
   margin-top: 34px;
   font-size: 14.5px;
@@ -1774,7 +1754,7 @@ tr:last-child td {
 }
 
 .split--dark .stores {
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 34px;
 }
 
