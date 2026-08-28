@@ -1066,17 +1066,19 @@ ul {
   font-size: clamp(15px, 1.4vw, 17px);
 }
 
-.closer__ctas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: flex-start;
+/* The gap between the closing sentence and the badges belongs here, on the
+   badges themselves, and not on a wrapper around them. It used to live on a
+   `.closer__ctas` div that only the home page had, so the same closer on
+   pricing and about had its badges sitting hard against the last line of
+   type. One rule, three pages, one gap.
+ *
+ * The store pair is marked `--center` in the markup on every page. Inside a
+   closer it lines up with the heading above it instead, the same as it does
+   in a hero. */
+.closer .stores {
   margin-top: 38px;
 }
 
-/* The store pair is marked `--center` in the markup on every page. Inside a
-   closer it lines up with the heading above it instead, the same as it does
-   in a hero. */
 .closer .stores--center {
   justify-content: flex-start;
 }
@@ -2291,7 +2293,7 @@ html {
     margin-top: 44px;
   }
 
-  .closer__ctas {
+  .closer .stores {
     margin-top: 28px;
   }
 
