@@ -35,6 +35,67 @@
     });
   });
 
+  /* --- The contact form --------------------------------------------------
+   *
+   * The form already works without this. It has a real `action` and a real
+   * `method`, so a submit with the script blocked posts to Formspree and the
+   * reader lands on Formspree's own thank-you page, which is a worse ending
+   * but not a broken one.
+   *
+   * What this adds is the part markup cannot: posting in the background so
+   * nobody leaves the page they were reading, and saying what happened in a
+   * line under the button. `aria-live` is on that line in the markup, so a
+   * screen reader hears the outcome without the focus being moved.
+   */
+
+  var forms = document.querySelectorAll("[data-ask]");
+
+  Array.prototype.forEach.call(forms, function (form) {
+    var status = form.querySelector("[data-ask-status]");
+    var button = form.querySelector("button[type='submit']");
+    var label = button ? button.textContent : "";
+
+    function say(text, state) {
+      if (!status) return;
+      status.textContent = text;
+      status.className = "ask__status" + (state ? " ask__status--" + state : "");
+    }
+
+    /* No fetch means an old browser, and an old browser is better served by
+       the plain submit it would have got anyway. */
+    if (!window.fetch) return;
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (button) {
+        button.disabled = true;
+        button.textContent = "Sending";
+      }
+      say("");
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" }
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error(String(response.status));
+          form.reset();
+          say("Sent. We reply from a real inbox, usually within a day.", "ok");
+        })
+        .catch(function () {
+          say("That did not send. Please use one of the addresses below.", "bad");
+        })
+        .then(function () {
+          if (button) {
+            button.disabled = false;
+            button.textContent = label;
+          }
+        });
+    });
+  });
+
   /* --- The year ---------------------------------------------------------- */
 
   var years = document.querySelectorAll("[data-year]");

@@ -996,6 +996,47 @@ ul {
   text-align: center;
 }
 
+/* One rule between each plan. Without them the table is ten rows of numbers
+   floating in a field and the eye has to count across to work out which
+   column it is in; with them each plan is a column you can read down. The
+   line is on the left of every cell but the first, so the label column stays
+   attached to the row it labels. */
+.compare td:not(:first-child),
+.compare th:not(:first-child) {
+  border-left: 1px solid var(--line);
+}
+
+.section--surface .compare td:not(:first-child),
+.section--surface .compare th:not(:first-child) {
+  border-left-color: #dcdce0;
+}
+
+/* The middle plan is the one being recommended, and it is the middle plan in
+   the cards above too, where it is the black one. Here it is a wash of the
+   accent rather than a fill: a table column in solid ink would out-shout the
+   numbers, which are the thing being compared. The rules either side are the
+   accent as well, so the column reads as one object down the whole table.
+ *
+ * Third child, because the first column is the row label.
+ */
+.compare th:nth-child(3),
+.compare td:nth-child(3) {
+  background: rgba(0, 127, 250, 0.055);
+  border-left-color: rgba(0, 127, 250, 0.28);
+  border-right: 1px solid rgba(0, 127, 250, 0.28);
+}
+
+.compare th:nth-child(3) {
+  color: var(--primary);
+  background: rgba(0, 127, 250, 0.11);
+}
+
+/* The recommended column carries its own emphasis, so its cells do not need
+   the shared one on top of it. */
+.compare td:nth-child(3) {
+  color: var(--ink);
+}
+
 .compare .is-best {
   color: var(--ink);
   font-weight: 600;
@@ -1003,19 +1044,23 @@ ul {
 
 /* --- Closing section ---------------------------------------------------- */
 
+/* Left aligned, on the footer's own left edge. The closer and the footer are
+   one dark band, so a centred closer sitting above a left-aligned footer put
+   two different alignments inside a single block of colour. */
 .closer {
-  text-align: center;
   width: 100%;
+  max-width: var(--shell);
+  margin: 0 auto;
+  text-align: left;
 }
 
 .closer__title {
   font-size: clamp(2rem, 4vw, 3.2rem);
   max-width: 18ch;
-  margin: 0 auto;
 }
 
 .closer__lede {
-  margin: 20px auto 0;
+  margin-top: 20px;
   max-width: 50ch;
   color: var(--faint);
   font-size: clamp(15px, 1.4vw, 17px);
@@ -1025,8 +1070,19 @@ ul {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 38px;
+}
+
+/* The store pair is marked `--center` in the markup on every page. Inside a
+   closer it lines up with the heading above it instead, the same as it does
+   in a hero. */
+.closer .stores--center {
+  justify-content: flex-start;
+}
+
+.closer .stores__note {
+  text-align: left;
 }
 
 /*
@@ -1456,11 +1512,6 @@ tr:last-child td {
   background: var(--surface);
 }
 
-.split--dark {
-  background: var(--ink);
-  color: #ffffff;
-}
-
 /* The single column has to be `minmax(0, 1fr)` and not the implicit `auto`.
    An auto track sizes to its widest child's max-content, and the widest child
    on a document page is a table with a 520px floor: on a 360px phone that one
@@ -1698,90 +1749,44 @@ tr:last-child td {
   background: var(--canvas);
 }
 
-/* --- The closing section on a document page -----------------------------
+/* --- The contact section -----------------------------------------------
  *
- * One column and dark: the page has ended, and the only thing left to say is
- * who to write to.
+ * Its own section, on its own ground, between the document and the footer.
+ * It used to be the top half of the black band the footer sits in, which
+ * made a form look like a piece of footer furniture; a reader scanning for
+ * somewhere to write skipped straight past it.
  *
- * It is left aligned, on the footer's measure rather than the document's.
- * The dark closing block and the footer under it are one black band with a
- * gap in the middle, so their left edges have to be the same edge: 50px of
- * disagreement inside one band reads as a mistake, where the step from the
- * white sections above happens across a colour change and is not noticed.
- * A centred block here read as a separate page stapled on.
+ * Two columns above 900px: what the section is for on the left, the form
+ * itself on the right. Below that they stack in DOM order, heading first.
  */
 
-.split--dark .split__inner {
-  grid-template-columns: minmax(0, 1fr);
+.split--contact .split__inner {
   max-width: var(--shell);
-  text-align: left;
 }
 
-.split--dark .split__head {
-  position: static;
-}
+@media (min-width: 900px) {
+  .split--contact .split__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: start;
+  }
 
-.split--dark .split__eyebrow {
-  color: rgba(255, 255, 255, 0.5);
-}
+  /* `.split--alt` swaps its two columns and makes the heading sticky. Neither
+     is wanted here: the form is the point of the section, so it keeps the
+     right-hand column, and there is nothing long enough to ride down with. */
+  .split--contact .split__head,
+  .split--contact .split__body {
+    order: 0;
+  }
 
-.split--dark .split__tagline {
-  max-width: 54ch;
-  color: var(--faint);
-}
+  .split--contact .split__head {
+    position: static;
+  }
 
-.split--dark a:not(.btn):not(.badge) {
-  color: #ffffff;
-}
-
-.contacts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px 44px;
-  margin-top: 34px;
-  font-size: 14.5px;
-  color: var(--faint);
-}
-
-.contacts strong {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.42);
-  margin-bottom: 7px;
-}
-
-.split--dark .stores {
-  justify-content: flex-start;
-  margin-top: 34px;
-}
-
-/* The version stamp at the foot of a legal page. It used to sit under the
-   title, where it competed with it; down here it is the last thing you read,
-   which is where a "last updated" line actually belongs. It stays on the page
-   because a policy with no effective date is not much of a policy, and the
-   package name is what a Play reviewer checks this page for. */
-.split__note--stamp {
-  margin-top: 40px;
-  padding-top: 22px;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  max-width: 60ch;
-  font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.split--dark .split__note--stamp strong {
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 600;
-}
-
-.split--dark .split__note--stamp code {
-  font-size: 0.94em;
-  padding: 2px 6px;
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
+  /* At one column the form is capped to a comfortable measure. In its own
+     column it fills it, so its right edge is the footer's right edge below. */
+  .split--contact .ask {
+    max-width: none;
+  }
 }
 
 /* --- The home hero ------------------------------------------------------
@@ -2003,7 +2008,6 @@ h4,
 
 /* On the night ground the accent blue is too dark to sit on ink, so the whole
    link goes white and the envelope goes with it. */
-.split--dark .mail,
 .section--dark .mail,
 .footer .mail {
   color: #ffffff;
@@ -2021,6 +2025,124 @@ h4,
 
 .footer .mail:hover {
   color: #ffffff;
+}
+
+/* --- The contact form ---------------------------------------------------
+ *
+ * A real form, posting to Formspree, because "here is an address, go and open
+ * your mail client" loses most people on a phone. The two addresses stay
+ * listed underneath it: a form is the easy route, not the only one, and it is
+ * no use to somebody who wants their own copy of what they sent.
+ *
+ * It works with the script blocked. The `action` and `method` are real, so a
+ * submit without JavaScript posts to Formspree and lands on their thank-you
+ * page; main.js upgrades that to a fetch and an inline line of confirmation,
+ * which is the only part CSS and HTML cannot do between them.
+ *
+ * The fields are hairline boxes on the section's own ground rather than
+ * filled panels sitting on top of it, which is what keeps a six-element form
+ * from being the loudest thing on a page of quiet type.
+ */
+
+.ask {
+  max-width: 560px;
+  display: grid;
+  gap: 18px;
+}
+
+.ask__row {
+  display: grid;
+  gap: 8px;
+}
+
+.ask__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* 16px is a floor, not a taste: iOS Safari zooms the page in on focus for any
+   field set smaller than that, and it does not zoom back out. */
+.ask__input {
+  width: 100%;
+  padding: 13px 14px;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  transition: border-color 0.15s ease;
+}
+
+.split--alt .ask__input {
+  border-color: #dcdce0;
+}
+
+.ask__input::placeholder {
+  color: var(--faint);
+}
+
+.ask__input:hover {
+  border-color: var(--faint);
+}
+
+.ask__input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.ask__input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Resizable vertically only. A textarea a reader can drag wider than its own
+   column is a textarea that breaks the layout on the first drag. */
+.ask__input--area {
+  resize: vertical;
+  min-height: 116px;
+}
+
+/* The honeypot. Off-screen rather than `display: none`, because a bot reading
+   the stylesheet skips a hidden field and fills a visible one; `aria-hidden`
+   and a negative tabindex keep it away from anybody real. */
+.ask__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ask__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.ask__status {
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.ask__status--ok {
+  color: var(--ink);
+}
+
+.ask__status--bad {
+  color: #c2321f;
+}
+
+/* While the request is in flight the button says so and stops accepting a
+   second press, which is the whole of the double-submit problem. */
+.ask button[disabled] {
+  opacity: 0.55;
+  cursor: default;
 }
 
 /* --- Mobile -------------------------------------------------------------
@@ -2191,10 +2313,6 @@ html {
 
   .footer__legal {
     margin-top: 34px;
-  }
-
-  .contacts {
-    gap: 18px 28px;
   }
 }
 

@@ -466,7 +466,7 @@
         </div>
       </section>
 
-      <section class="split split--dark" id="contact" aria-labelledby="terms-contact-h">
+      <section class="split split--alt split--contact" id="contact" aria-labelledby="terms-contact-h">
         <div class="split__inner">
           <div class="split__head">
             <p class="split__eyebrow">Reaching us</p>
@@ -477,25 +477,28 @@
               These terms should be clear to the person agreeing to them. If a
               clause is not, tell us.
             </p>
+          </div>
 
-            <div class="contacts">
-              <p>
-                <strong>Support and privacy</strong>
-                <a class="mail" href="mailto:support@ardena.co.ke"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" /><path d="m2.5 6 9.5 6.6L21.5 6" /></svg><span>Email support</span></a>
+          <div class="split__body">
+            <form class="ask" data-ask action="https://formspree.io/f/xqpkkkjp" method="POST">
+              <p class="ask__row">
+                <label class="ask__label" for="ask-email">Your email</label>
+                <input class="ask__input" id="ask-email" type="email" name="email" required autocomplete="email" placeholder="So we can reply" />
               </p>
-              <p>
-                <strong>Anything else</strong>
-                <a class="mail" href="mailto:info@ardena.co.ke"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" /><path d="m2.5 6 9.5 6.6L21.5 6" /></svg><span>Email us</span></a>
-              </p>
-              <p>
-                <strong>Policy</strong>
-                <a href="/privacy">Privacy policy</a>
-              </p>
-            </div>
 
-            <p class="split__note split__note--stamp">
-              <strong>als</strong>, package <code>com.ardena.als</code>, and this website. Laws of Kenya. Updated 23 August 2026.
-            </p>
+              <p class="ask__row">
+                <label class="ask__label" for="ask-message">Message</label>
+                <textarea class="ask__input ask__input--area" id="ask-message" name="message" rows="5" required placeholder="The clause that reads badly, and what is unclear about it."></textarea>
+              </p>
+
+              <input type="hidden" name="_subject" value="Website: terms of service" />
+              <input class="ask__trap" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+              <p class="ask__foot">
+                <button class="btn btn--primary" type="submit">Send</button>
+                <span class="ask__status" data-ask-status role="status" aria-live="polite"></span>
+              </p>
+            </form>
           </div>
         </div>
       </section>
@@ -535,6 +538,7 @@
             <p class="footer__head">Company</p>
             <ul class="footer__list">
               <li><a href="/support">Support</a></li>
+              <li><a class="mail" href="mailto:support@ardena.co.ke"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" /><path d="m2.5 6 9.5 6.6L21.5 6" /></svg><span>Email support</span></a></li>
               <li><a class="mail" href="mailto:info@ardena.co.ke"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" /><path d="m2.5 6 9.5 6.6L21.5 6" /></svg><span>Say hello</span></a></li>
             </ul>
           </div>

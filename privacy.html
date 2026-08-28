@@ -307,11 +307,11 @@
           <div class="split__head">
             <p class="split__eyebrow">06 / Who we share it with</p>
             <h2 class="split__title" id="sharing-h">
-              Five processors, each seeing only its own job.
+              Six processors, each seeing only its own job.
             </h2>
             <p class="split__tagline">
-              These are the services needed to run als. There is no sixth, and
-              none of them receive more than the column on the right says.
+              These are the services needed to run als. There is no seventh,
+              and none of them receive more than the column on the right says.
             </p>
             <p class="split__note">
               Some of these process data outside Kenya. Where they do, transfers
@@ -356,6 +356,11 @@
                     <td>Our AI provider</td>
                     <td>Generates answers from your material</td>
                     <td>The passages relevant to the question you asked</td>
+                  </tr>
+                  <tr>
+                    <td>Formspree</td>
+                    <td>Delivers the contact form on this website to our inbox</td>
+                    <td>Only the address and message you type into that form</td>
                   </tr>
                 </tbody>
               </table>
@@ -530,7 +535,7 @@
         </div>
       </section>
 
-      <section class="split split--dark" id="contact" aria-labelledby="privacy-contact-h">
+      <section class="split split--alt split--contact" id="contact" aria-labelledby="privacy-contact-h">
         <div class="split__inner">
           <div class="split__head">
             <p class="split__eyebrow">Questions</p>
@@ -541,25 +546,28 @@
               A real person reads these. If something here is unclear, that is
               our fault to fix.
             </p>
+          </div>
 
-            <div class="contacts">
-              <p>
-                <strong>Privacy and support</strong>
-                <a class="mail" href="mailto:support@ardena.co.ke"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" /><path d="m2.5 6 9.5 6.6L21.5 6" /></svg><span>Email support</span></a>
+          <div class="split__body">
+            <form class="ask" data-ask action="https://formspree.io/f/xqpkkkjp" method="POST">
+              <p class="ask__row">
+                <label class="ask__label" for="ask-email">Your email</label>
+                <input class="ask__input" id="ask-email" type="email" name="email" required autocomplete="email" placeholder="So we can reply" />
               </p>
-              <p>
-                <strong>Anything else</strong>
-                <a class="mail" href="mailto:info@ardena.co.ke"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" /><path d="m2.5 6 9.5 6.6L21.5 6" /></svg><span>Email us</span></a>
-              </p>
-              <p>
-                <strong>Deletion</strong>
-                <a href="/delete-account">Delete your account</a>
-              </p>
-            </div>
 
-            <p class="split__note split__note--stamp">
-              <strong>als</strong>, package <code>com.ardena.als</code>, and this website. Ardena Platforms Africa Ltd, Nairobi. Updated 23 August 2026.
-            </p>
+              <p class="ask__row">
+                <label class="ask__label" for="ask-message">Message</label>
+                <textarea class="ask__input ask__input--area" id="ask-message" name="message" rows="5" required placeholder="Your question, or the request you want to make under section 09."></textarea>
+              </p>
+
+              <input type="hidden" name="_subject" value="Website: privacy policy" />
+              <input class="ask__trap" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+              <p class="ask__foot">
+                <button class="btn btn--primary" type="submit">Send</button>
+                <span class="ask__status" data-ask-status role="status" aria-live="polite"></span>
+              </p>
+            </form>
           </div>
         </div>
       </section>
@@ -599,6 +607,7 @@
             <p class="footer__head">Company</p>
             <ul class="footer__list">
               <li><a href="/support">Support</a></li>
+              <li><a class="mail" href="mailto:support@ardena.co.ke"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" /><path d="m2.5 6 9.5 6.6L21.5 6" /></svg><span>Email support</span></a></li>
               <li><a class="mail" href="mailto:info@ardena.co.ke"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" /><path d="m2.5 6 9.5 6.6L21.5 6" /></svg><span>Say hello</span></a></li>
             </ul>
           </div>

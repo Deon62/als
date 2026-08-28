@@ -108,6 +108,23 @@ Role addresses on purpose, not a personal inbox: these go on a public page that
 scrapers read, and a person's own address on it is a decision they cannot take
 back.
 
+### The contact form
+
+Every contact section posts to Formspree at `https://formspree.io/f/xqpkkkjp`.
+Change that `action` in all five pages if the endpoint changes: `privacy.html`,
+`terms.html`, `delete-account.html`, `support.html`, `faq.html`.
+
+It degrades properly. The `action` and `method` are real, so with JavaScript
+blocked a submit posts straight to Formspree and lands on their thank-you page.
+`assets/main.js` upgrades that to a background fetch and a line of confirmation
+under the button, so nobody leaves the page they were reading. Each page sends
+a different hidden `_subject` so you can tell from the inbox which page the
+message came from, and a `_gotcha` honeypot field catches the simplest bots.
+
+Formspree is listed as a processor in the privacy policy, section 06. If you
+move to a different provider, that row and the processor count in the heading
+above it both have to change.
+
 **No address is ever written out as text.** Every route to an inbox on the site
 is an `<a class="mail">` holding an envelope icon and a label saying which
 inbox it is; the address itself exists only inside the `mailto:`. Two reasons:
