@@ -97,17 +97,24 @@ something to link to.
 
 ### 3. The email addresses
 
-Three role addresses are used. Create them, or change them:
+Two role addresses are used. Create them, or change them:
 
 | Address | Used on |
 |---|---|
-| `support@ardena.co.ke` | footers, terms, support, refunds |
-| `privacy@ardena.co.ke` | privacy policy, deletion requests |
-| `hello@ardena.co.ke` | footers, support |
+| `support@ardena.co.ke` | support, terms, refunds, privacy policy, deletion requests |
+| `info@ardena.co.ke` | footers, and anything that is not a support request |
 
 Role addresses on purpose, not a personal inbox: these go on a public page that
 scrapers read, and a person's own address on it is a decision they cannot take
 back.
+
+**No address is ever written out as text.** Every route to an inbox on the site
+is an `<a class="mail">` holding an envelope icon and a label saying which
+inbox it is; the address itself exists only inside the `mailto:`. Two reasons:
+a scraper reading the rendered page finds nothing to harvest, and a long role
+address set in running text is the single most common thing that pushes a
+phone layout sideways. If you add a contact route, copy an existing `.mail`
+link rather than typing the address into a sentence.
 
 ### And read the legal pages
 
