@@ -136,7 +136,7 @@ link rather than typing the address into a sentence.
 ### And read the legal pages
 
 `privacy.html` and `terms.html` are drafted from how the app actually behaves:
-one device per account, one trial per person, no auto-renewal, Paystack for
+one device per account, one trial per person, no auto-renewal, Kora for
 payment, Supabase for files, coursework never used for training. They are a
 solid starting point and they are **not legal advice.** Have someone qualified
 read them before the app is public, and check every factual claim still holds
